@@ -546,7 +546,30 @@ function renderScore() {
     input.addEventListener("input", () => {
       setInput(p.id, input.value);
     });
+input.addEventListener("focus", () => {
+  // If it's the default 0, clear it so typing "5" doesn't become "50" or "05"
+  if (input.value.trim() === "0") {
+    input.value = "";
+    setInput(p.id, "");
+  } else {
+    // Nice UX: highlight existing value for quick overwrite
+    input.select();
+  }
+});
 
+input.addEventListener("blur", () => {
+  const t = input.value.trim();
+  // If empty (or just "-"), restore default 0
+  if (t === "" || t === "-") {
+    input.value = "0";
+    setInput(p.id, "0");
+  }
+});
+
+// keep your existing input handler
+input.addEventListener("input", () => {
+  setInput(p.id, input.value);
+});
     // On iPhone, "Next" works better with enterKeyHint + keydown
     input.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
