@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b1020" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <title>Flip 7 Scorekeeper</title>
+
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- iOS "Add to Home Screen" icon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-left">
+      <div class="app-title">Flip 7 Scorekeeper</div>
+      <div class="app-subtitle" id="subtitle">Setup</div>
+    </div>
+    <div class="header-right">
+      <button class="btn btn-ghost" id="btnNewGame" type="button" title="New Game">
+        New Game
+      </button>
+    </div>
+  </header>
+
+  <main class="app" id="app">
+    <!-- Setup View -->
+    <section class="view" id="viewSetup" aria-label="Setup">
+      <div class="card">
+        <h1>Players</h1>
+        <p class="muted">Add 2–8 players. Tap a name to edit it.</p>
+
+        <div id="playerList" class="player-list"></div>
+
+        <div class="row gap">
+          <button class="btn btn-primary" id="btnAddPlayer" type="button">Add Player</button>
+          <button class="btn" id="btnStartGame" type="button">Start Game</button>
+        </div>
+
+        <div class="hint">
+          Tip: Scores can be negative. You’ll enter <strong>only</strong> each player’s round total.
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Install on iPhone</h2>
+        <ol class="steps">
+          <li>Open this page in <strong>Safari</strong>.</li>
+          <li>Tap <strong>Share</strong> (square with arrow).</li>
+          <li>Tap <strong>Add to Home Screen</strong>.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Main Scoring View -->
+    <section class="view hidden" id="viewScore" aria-label="Scoring">
+      <div class="banner hidden" id="endBanner" role="status" aria-live="polite"></div>
+
+      <div class="card">
+        <div class="row space-between">
+          <h1>Round <span id="roundNumber">1</span></h1>
+          <button class="btn btn-ghost" id="btnHistory" type="button">Round History</button>
+        </div>
+
+        <div class="muted small">
+          Players are always sorted by total score (leader on top).
+        </div>
+
+        <div id="scoreList" class="score-list"></div>
+
+        <div class="row gap">
+          <button class="btn btn-primary" id="btnSubmitRound" type="button">Submit Round</button>
+          <button class="btn" id="btnUndo" type="button">Undo Last Round</button>
+        </div>
+
+        <div class="row gap">
+          <button class="btn btn-ghost" id="btnResetScores" type="button">Reset Scores (Keep Players)</button>
+          <button class="btn btn-ghost danger" id="btnClearHistory" type="button">Clear History</button>
+        </div>
+
+        <div class="muted small" id="saveStatus">Saved locally on this device.</div>
+      </div>
+    </section>
+
+    <!-- History View -->
+    <section class="view hidden" id="viewHistory" aria-label="Round History">
+      <div class="card">
+        <div class="row space-between">
+          <h1>Round History</h1>
+          <button class="btn" id="btnBackToScore" type="button">Back</button>
+        </div>
+
+        <div id="historyList" class="history-list"></div>
+
+        <div class="hint">
+          Tap a round to edit its scores. Totals will be recalculated for that round and all later rounds.
+        </div>
+      </div>
+    </section>
+
+    <!-- Edit Round View -->
+    <section class="view hidden" id="viewEdit" aria-label="Edit Round">
+      <div class="card">
+        <div class="row space-between">
+          <h1>Edit Round <span id="editRoundNumber">?</span></h1>
+          <button class="btn" id="btnCancelEdit" type="button">Cancel</button>
+        </div>
+
+        <div class="muted">Update the scores for this round, then Save.</div>
+
+        <div id="editList" class="edit-list"></div>
+
+        <div class="row gap">
+          <button class="btn btn-primary" id="btnSaveEdit" type="button">Save Changes</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <div class="muted small">Offline-ready • No account • Data stays on this device</div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
